@@ -33,7 +33,7 @@
         <div class="font-weight:600">Participants</div>
         <div class="font-weight:400 my-font">Shopping Platform</div>
         <div class="font-weight:600">Experienced Consumers</div>
-        <div class="font-weight:400 my-font">Famous Convenient Stor</div>
+        <div class="font-weight:400 my-font">Famous Convenient Store</div>
         <div class="font-weight:600">Coffee cupping expert</div>
         <div class="font-weight:400 my-font">VSCO</div>
         <div class="font-weight:600">Annual Pro Member</div>

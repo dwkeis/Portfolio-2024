@@ -110,17 +110,17 @@ const isHome = (val) => {
 };
 
 onMounted(() => {
-  // setTimeout(() => {
-  preLoad.value = false;
   setTimeout(() => {
-    let element = document.getElementById("banner");
-    element.className =
-      "w:300 h:150 translateX(0) opacity:1 transition:all|300ms|linear|50ms";
-    let text_element = document.getElementById("banner_text");
-    text_element.className =
-      "z:999 translateX(0) opacity:1 transition:all|300ms|linear|50ms";
-  }, 500);
-  // }, 3000);
+    preLoad.value = false;
+    setTimeout(() => {
+      let element = document.getElementById("banner");
+      element.className =
+        "w:300 h:150 translateX(0) opacity:1 transition:all|300ms|linear|50ms";
+      let text_element = document.getElementById("banner_text");
+      text_element.className =
+        "z:999 translateX(0) opacity:1 transition:all|300ms|linear|50ms";
+    }, 500);
+  }, 3000);
 });
 </script>
 <style scoped>
