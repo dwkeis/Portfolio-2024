@@ -23,10 +23,11 @@
         <div>Created and shaped in 🇲🇴</div>
         <div>Refined and living in 🇹🇼</div>
         <div>A 🇵🇹 due to historic problem.</div>
-        <div class="mt:14">Passionate about football</div>
-        <div>spent most of time enjoying it.</div>
-        <div>Same way as a developer,</div>
-        <div>always exploring through experiments.</div>
+        <div class="mt:14">With a fervent passion for football,</div>
+        <div>I devote a significant portion of my time to the sport.</div>
+        <div>Similarly, as a developer,</div>
+        <div>I am constantly engaged in experimentation and</div>
+        <div>exploration to refine my skills and knowledge.</div>
       </div>
       <div v-if="selected === 'Project'" class="">
         <ProjectPicker />
