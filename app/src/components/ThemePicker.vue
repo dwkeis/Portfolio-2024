@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed display:flex flex:row flex:nowrap gap:16 left:24 bottom:32 transform-origin:left transform-origin:bottom rotate(-90)"
+    class="fixed display:flex flex:row flex:nowrap gap:16 left:24 bottom:32 {left:8;bottom:16;f:12}@<md transform-origin:left transform-origin:bottom rotate(-90)"
   >
     <div class="row ai:center gap:4 cursor:pointer" @click="pickLight(true)">
       <div
