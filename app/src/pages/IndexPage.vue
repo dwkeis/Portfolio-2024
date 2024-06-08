@@ -16,6 +16,7 @@
       >
         <theme-picker />
         <canvas
+          id="webgl"
           class="webgl fixed z:99 h:calc(100%-32px) w:calc(100%-32px)"
         ></canvas>
         <div
@@ -123,63 +124,41 @@ const isHome = (val) => {
 };
 
 const initThree = () => {
-  const camera = new THREE.PerspectiveCamera(
-    70,
-    window.innerWidth / window.innerHeight,
-    1,
-    1000
-  );
-  camera.position.y = 150;
-  camera.position.z = 500;
-
-  const scene = new THREE.Scene();
-  scene.background = "red";
-
-  const pointLight1 = new THREE.PointLight(0xffffff, 3, 0, 0);
-  pointLight1.position.set(500, 500, 500);
-  scene.add(pointLight1);
-
-  const pointLight2 = new THREE.PointLight(0xffffff, 1, 0, 0);
-  pointLight2.position.set(-500, -500, -500);
-  scene.add(pointLight2);
-
-  const sphere = new THREE.Mesh(
-    new THREE.SphereGeometry(200, 20, 10),
-    new THREE.MeshPhongMaterial({ flatShading: true })
-  );
-  scene.add(sphere);
-
-  // Plane
-
-  const plane = new THREE.Mesh(
-    new THREE.PlaneGeometry(400, 400),
-    new THREE.MeshBasicMaterial({ color: 0xe0e0e0 })
-  );
-  plane.position.y = -200;
-  plane.rotation.x = -Math.PI / 2;
-  scene.add(plane);
-
-  renderer.value = new THREE.WebGLRenderer({
-    canvas: canvas.value,
-  });
-  renderer.value.setSize(window.innerWidth, window.innerHeight);
-
-  // effect.value = new AsciiEffect(renderer, " .:-+*=%@#", { invert: true });
-  // console.log(effect.value);
-  // effect.value.setSize(1000, 1000);
-  // effect.value.domElement.style.color = "white";
-  // effect.value.domElement.style.backgroundColor = "black";
-
-  // Special case: append effect.domElement, instead of renderer.domElement.
-  // AsciiEffect creates a custom domElement (a div container) where the ASCII elements are placed.
-
-  // document.body.appendChild(effect.value.domElement);
-
-  // controls = new TrackballControls(camera, effect.value.domElement);
-
-  //
-
-  // window.addEventListener("resize", onWindowResize);
+  // canvas.value = document.getElementById("webgl");
+  // const camera = new THREE.PerspectiveCamera(
+  //   70,
+  //   window.innerWidth / window.innerHeight,
+  //   1,
+  //   1000
+  // );
+  // camera.position.y = 150;
+  // camera.position.z = 500;
+  // const scene = new THREE.Scene();
+  // scene.background = "red";
+  // const pointLight1 = new THREE.PointLight(0xffffff, 3, 0, 0);
+  // pointLight1.position.set(500, 500, 500);
+  // scene.add(pointLight1);
+  // const pointLight2 = new THREE.PointLight(0xffffff, 1, 0, 0);
+  // pointLight2.position.set(-500, -500, -500);
+  // scene.add(pointLight2);
+  // const sphere = new THREE.Mesh(
+  //   new THREE.SphereGeometry(200, 20, 10),
+  //   new THREE.MeshPhongMaterial({ flatShading: true })
+  // );
+  // scene.add(sphere);
+  // // Plane
+  // const plane = new THREE.Mesh(
+  //   new THREE.PlaneGeometry(400, 400),
+  //   new THREE.MeshBasicMaterial({ color: 0xe0e0e0 })
+  // );
+  // plane.position.y = -200;
+  // plane.rotation.x = -Math.PI / 2;
+  // scene.add(plane);
+  // renderer.value = new THREE.WebGLRenderer({
+  //   canvas: canvas.value,
+  // });
+  // renderer.value.setSize(window.innerWidth, window.innerHeight);
+  // renderer.value.render(scene, camera);
 };
 
 onMounted(() => {

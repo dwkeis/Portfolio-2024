@@ -17,7 +17,7 @@
     </div>
     <div
       id="page-content"
-      class="abs right:calc(32px*2) bottom:calc(32px*2) {right:calc(16px*2);bottom:calc(16px*2)}@<md"
+      class="abs right:calc(32px*2) bottom:calc(32px*2) {right:calc(16px*2);bottom:calc(16px*2)}@<md z:999"
     >
       <div v-if="selected === 'Home'" class="f:bold w:200">
         <div>Created and shaped in 🇲🇴</div>
@@ -100,10 +100,10 @@ const FunFacts = ref([
 const selectLabel = (val) => {
   let element = document.getElementById("page-content");
   element.className =
-    "abs right:calc(32px*2) bottom:calc(32px*2) {right:calc(16px*2);bottom:calc(16px*2)}@<md opacity:0 transition:opacity|300ms";
+    "abs right:calc(32px*2) bottom:calc(32px*2) {right:calc(16px*2);bottom:calc(16px*2)}@<md opacity:0 transition:opacity|300ms z:999";
   setTimeout(() => {
     element.className =
-      "abs right:calc(32px*2) bottom:calc(32px*2) {right:calc(16px*2);bottom:calc(16px*2)}@<md opacity:1 transition:opacity|300ms";
+      "abs right:calc(32px*2) bottom:calc(32px*2) {right:calc(16px*2);bottom:calc(16px*2)}@<md opacity:1 transition:opacity|300ms z:999";
     selected.value = val;
   }, 300);
   emit("update", val);
