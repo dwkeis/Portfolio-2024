@@ -64,7 +64,7 @@ defineOptions({
 const canvas = ref(null);
 const renderer = ref(null);
 const effect = ref(null);
-const preLoad = ref(false);
+const preLoad = ref(true);
 const currentPage = ref("Home");
 const bannerIn = ref(
   "w:300 h:168.75 {w:150;h:84;}@<md translateX(0) opacity:1 transition:all|300ms|linear|50ms"
