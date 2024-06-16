@@ -8,7 +8,7 @@
       v-for="project in projects"
       :key="project"
       class="hover2 cursor:pointer row ai:end gap:8 mb:12 w:min"
-      @click="goto(project.project)"
+      @click="goto(project.title)"
     >
       <span class="f:60 my-font lh:1 flex-basis:full@<md">{{
         project.title
@@ -33,12 +33,10 @@ const projects = ref([
   {
     title: "Card",
     date: "Mar. 2024 / Toast Club / Three Fiber",
-    project: "Coin",
   },
   {
     title: "Card-Init",
     date: "Mar. 2024 / Toast Club / Three Fiber",
-    project: "CoinCard",
   },
   {
     title: "DrawBox",
