@@ -1,5 +1,7 @@
 <template>
-  <div class="no-scroll h:75vh h:72.8vh@<md direction:rtl ac:flex-end">
+  <div
+    class="no-scroll max-w:220@<md h:75vh h:72.8vh@<md direction:rtl ac:flex-end"
+  >
     <div class="row ai:center gap:4 mb:40">
       Project Three.js
       <div class="b:1|solid|$(grayscale-400) p:4 bg:$(grayscale-1000)"></div>
@@ -7,7 +9,7 @@
     <div
       v-for="project in projects"
       :key="project"
-      class="hover2 cursor:pointer row ai:end gap:8 mb:12"
+      class="hover2 cursor:pointer row ai:end gap:8 mb:12 w:fit"
       @click="goto(project.title)"
     >
       <span class="f:60 my-font lh:1 flex-basis:full@<md">{{
