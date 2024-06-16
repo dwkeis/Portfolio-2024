@@ -12,7 +12,7 @@
       </div>
       <div
         v-else
-        class="h:90vh d:flex flex:col flex-grow:1 m:32 m:16@<md b:1|solid|$(grayscale-400)"
+        class="h:90vh d:flex flex:col flex-grow:1 m:32 m:24@<md b:1|solid|$(grayscale-400)"
       >
         <theme-picker />
         <canvas
@@ -64,7 +64,7 @@ defineOptions({
 const canvas = ref(null);
 const renderer = ref(null);
 const effect = ref(null);
-const preLoad = ref(true);
+const preLoad = ref(false);
 const currentPage = ref("Home");
 const bannerIn = ref(
   "w:300 h:168.75 {w:150;h:84;}@<md translateX(0) opacity:1 transition:all|300ms|linear|50ms"

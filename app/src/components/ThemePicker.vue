@@ -1,20 +1,20 @@
 <template>
   <div
-    class="fixed display:flex flex:row flex:nowrap gap:16 left:24 bottom:32 {left:8;bottom:16;f:12}@<md transform-origin:left transform-origin:bottom rotate(-90)"
+    class="fixed display:flex flex:row flex:nowrap gap:16 left:22 bottom:22 {left:16;bottom:15;f:12}@<md transform-origin:left transform-origin:bottom rotate(-90)"
   >
     <div class="row ai:center gap:4 cursor:pointer" @click="pickLight(true)">
       <div
         class="b:1|solid|$(grayscale-400) p:4"
         :class="`${isLightTheme ? 'bg:$(grayscale-1000) ' : ''}`"
       ></div>
-      Light
+      LIGHT
     </div>
     <div class="row ai:center gap:4 cursor:pointer" @click="pickLight(false)">
       <div
         class="b:1|solid|$(grayscale-400) p:4"
         :class="`${isLightTheme ? '' : 'bg:white '}`"
       ></div>
-      Dark
+      DARK
     </div>
   </div>
 </template>

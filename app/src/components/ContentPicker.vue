@@ -16,7 +16,7 @@
       </div>
     </div>
     <div
-      class="abs right:calc(32px*2) bottom:calc(32px*2) {right:calc(16px*2);bottom:calc(16px*2)}@<md transition:opacity|300ms z:999"
+      class="abs right:calc(32px*2) bottom:calc(32px*2) {right:calc(20px*2);bottom:calc(16px*2)}@<md transition:opacity|300ms z:999"
       :class="fadeClass"
     >
       <div v-if="selected === 'Home'" class="f:bold w:200">
