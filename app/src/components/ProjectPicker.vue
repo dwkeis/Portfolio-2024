@@ -1,7 +1,7 @@
 <template>
-  <div
-    class="no-scroll max-w:220@<md h:75vh h:72.8vh@<md direction:rtl ac:flex-end"
-  >
+  <div class="no-scroll max-w:230@<md h:100vh mb:-30 direction:rtl ac:flex-end">
+    <div class="my:106"><br /></div>
+
     <div class="row ai:center gap:4 mb:40">
       Project Three.js
       <div class="b:1|solid|$(grayscale-400) p:4 bg:$(grayscale-1000)"></div>
@@ -11,6 +11,21 @@
       :key="project"
       class="hover2 cursor:pointer row ai:end gap:8 mb:12 w:fit"
       @click="goto(project.title)"
+    >
+      <span class="f:60 my-font lh:1 flex-basis:full@<md">{{
+        project.title
+      }}</span>
+      <span class="f:bold white-space:nowrap">{{ project.date }}</span>
+    </div>
+    <div class="row ai:center gap:4 my:40">
+      Project Vue3
+      <div class="b:1|solid|$(grayscale-400) p:4 bg:$(grayscale-1000)"></div>
+    </div>
+    <div
+      v-for="project in vueProjects"
+      :key="project"
+      class="hover2 cursor:pointer row ai:end gap:8 mb:12 mb:30:last-child w:fit"
+      @click="open(project.title)"
     >
       <span class="f:60 my-font lh:1 flex-basis:full@<md">{{
         project.title
@@ -48,15 +63,38 @@ const projects = ref([
     title: "Sphere",
     date: "May. 2024 / Taost Annecy / Three",
   },
+  // {
+  //   title: "Floating Card",
+  //   date: "Apr. 2024 / Taost Annecy / Three",
+  // },
+]);
+const vueProjects = ref([
   {
-    title: "Floating Card",
-    date: "Apr. 2024 / Taost Annecy / Three",
+    title: "OpenTalk",
+    date: "Mar. 2022 / Quasar2 + Master Css",
+  },
+  {
+    title: "Caigunn",
+    date: "Nov. 2023 / Nuxt + Master Css",
+  },
+  {
+    title: "APMIC",
+    date: "Sept. 2023 / Nuxt + Tailwind Css",
   },
 ]);
 
 const goto = (val) => {
   projectName.value = val;
   showProjectDialog.value = true;
+};
+const open = (val) => {
+  if (val === "OpenTalk") {
+    window.open("https://opentalk.ap-mic.com/login", "_blank");
+  } else if (val === "Caigunn") {
+    window.open("https://caigunn.ap-mic.com/", "_blank");
+  } else {
+    window.open("https://www.ap-mic.com/", "_blank");
+  }
 };
 </script>
 

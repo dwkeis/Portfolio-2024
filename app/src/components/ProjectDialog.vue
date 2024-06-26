@@ -20,10 +20,12 @@
 import BaseDialog from "src/components/BaseDialog.vue";
 import { computed, onMounted, onUnmounted, ref } from "vue";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import * as THREE from "three";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import { gsap } from "gsap";
-import { easing } from "maath";
+import { easing, geometry } from "maath";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 const props = defineProps({
   dialogShow: {
@@ -58,6 +60,7 @@ rgbeLoader.load("HDR_029_Sky_Cloudy_Env.hdr", (environmentMap) => {
   scene.environment = environmentMap;
 });
 const gltfLoader = new GLTFLoader();
+const controls = ref(null);
 
 const initCard = () => {
   /**
@@ -97,14 +100,27 @@ const initCard = () => {
       }
     });
     gltf.scene.rotation.set(0, 2.5, 0);
+    gltf.scene.position.set(0.7, 0, 0);
     medal.value = gltf.scene;
     scene.add(gltf.scene);
+    gsap.to(medal.value.rotation, {
+      duration: 1.5,
+      x: 0,
+      y: 0,
+    });
+    gsap.to(medal.value.position, {
+      duration: 1.5,
+      x: 0,
+      onComplete: () => {
+        intro = false;
+      },
+    });
   });
 
   /**
    * Camera
    */
-  camera.value.position.set(-1.7, 0.05, 1);
+  camera.value.position.set(0, 0.05, 1);
   scene.add(camera.value);
 
   /**
@@ -119,20 +135,7 @@ const initCard = () => {
     // Call tick again on the next frame
     requestAnimationFrame(tick);
     if (mixer.value) {
-      if (intro) {
-        gsap.to(camera.value.position, {
-          duration: 1.2,
-          x: 0,
-        });
-        gsap.to(medal.value.rotation, {
-          duration: 1.5,
-          x: 0,
-          y: 0,
-          onComplete: () => {
-            intro = false;
-          },
-        });
-      } else {
+      if (!intro) {
         const dampingFactor = 0.25;
         const targetRotation = [
           lastMousePosition.x / 5,
@@ -146,9 +149,9 @@ const initCard = () => {
           dampingFactor,
           elapsedTime
         );
+        medal.value.rotation.y += Math.cos(elapsedTime) * 0.08;
+        medal.value.rotation.x += Math.sin(elapsedTime) * 0.08;
       }
-      medal.value.rotation.y += Math.cos(elapsedTime) * 0.08;
-      medal.value.rotation.x += Math.sin(elapsedTime) * 0.08;
       // Render
       renderer.value.render(scene, camera.value);
     }
@@ -333,6 +336,7 @@ const initDrawBox = () => {
    */
   const mixer_box = ref(null);
   const box = ref(null);
+  const rotateGroup = new THREE.Group();
 
   gltfLoader.load("box_0218824.glb", (gltf) => {
     if (gltf.animations.length > 0) {
@@ -354,15 +358,24 @@ const initDrawBox = () => {
     gsap.to(gltf.scene.scale, {
       duration: 1,
       ease: "bounce.out",
-      x: 0.15,
-      y: 0.15,
-      z: 0.15,
+      x: 0.1,
+      y: 0.1,
+      z: 0.1,
     });
+
     box.value = gltf.scene;
-    scene.add(gltf.scene);
+    rotateGroup.add(gltf.scene);
+    rotateGroup.rotation.set(0.2, 0.8, 0.3);
+    scene.add(rotateGroup);
   });
 
-  camera.value.position.set(0, 0, 15);
+  camera.value = new THREE.PerspectiveCamera(
+    45,
+    sizes.width / sizes.height,
+    0.1,
+    100
+  );
+  camera.value.position.set(0, 3, 15);
   scene.add(camera.value);
 
   const tick = () => {
@@ -392,6 +405,79 @@ const initDrawBox = () => {
   tick();
 };
 
+const initSphere = () => {
+  const loader = new DRACOLoader();
+  loader.setDecoderPath("draco/");
+  loader.preload();
+  gltfLoader.setDRACOLoader(loader);
+  const target = [];
+  const vector = new THREE.Vector3();
+  let instancedMesh1, instancedMesh2;
+
+  for (let i = 0, l = 48; i < l; i++) {
+    const phi = Math.acos(-1 + (2 * i) / l);
+    const theta = Math.sqrt(l * Math.PI) * phi * 1.19;
+    const object = new THREE.Object3D();
+    object.position.setFromSphericalCoords(8, phi, theta);
+    vector.copy(object.position).multiplyScalar(2);
+    object.lookAt(vector);
+    target.push(object);
+  }
+  gltfLoader.load("project-baked-2.glb", (gltf) => {
+    const nodes = gltf.scene.children[0];
+    const geometry1 = nodes.children.find(
+      (node) => node.name === "平面020"
+    ).geometry;
+    const material1 = nodes.children.find(
+      (node) => node.name === "平面020"
+    ).material;
+
+    const geometry2 = nodes.children.find(
+      (node) => node.name === "平面020_1"
+    ).geometry;
+    const material2 = nodes.children.find(
+      (node) => node.name === "平面020_1"
+    ).material;
+
+    const count = 48; // Number of instances
+
+    instancedMesh1 = new THREE.InstancedMesh(geometry1, material1, count);
+    instancedMesh2 = new THREE.InstancedMesh(geometry2, material2, count);
+
+    const dummy = new THREE.Object3D();
+
+    // Apply transformations to each instance
+    for (let i = 0; i < count; i++) {
+      // Set the dummy object's position and rotation
+      dummy.position.copy(target[i].position);
+      dummy.rotation.copy(target[i].rotation);
+      // Create a rotation matrix for 180 degrees around Y-axis
+      dummy.rotateY(Math.PI);
+      // Update the dummy object's matrix
+      dummy.updateMatrix();
+      instancedMesh1.setMatrixAt(i, dummy.matrix);
+      instancedMesh2.setMatrixAt(i, dummy.matrix);
+    }
+
+    instancedMesh1.instanceMatrix.needsUpdate = true;
+    instancedMesh2.instanceMatrix.needsUpdate = true;
+    scene.add(instancedMesh1);
+    scene.add(instancedMesh2);
+  });
+  camera.value.position.set(0, 0, 20);
+  scene.add(camera.value);
+
+  const tick = () => {
+    requestAnimationFrame(tick);
+    controls.value.update();
+    renderer.value.render(scene, camera.value);
+  };
+
+  setRender();
+  controls.value.autoRotate = true;
+  tick();
+};
+
 const setRender = () => {
   canvas.value = document.querySelector("canvas.project");
   renderer.value = new THREE.WebGLRenderer({
@@ -402,6 +488,9 @@ const setRender = () => {
   renderer.value.shadowMap.enabled = true;
   renderer.value.setSize(sizes.width, sizes.height - 16);
   renderer.value.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  controls.value = new OrbitControls(camera.value, renderer.value.domElement);
+  controls.value.update();
 };
 
 const onResize = () => {
@@ -432,6 +521,8 @@ const functionCaller = () => {
       return initCoinCard();
     case "DrawBox":
       return initDrawBox();
+    case "Sphere":
+      return initSphere();
     default:
       return "";
   }
