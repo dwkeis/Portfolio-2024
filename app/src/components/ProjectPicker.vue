@@ -2,10 +2,15 @@
   <div class="no-scroll max-w:230@<md h:100vh mb:-30 direction:rtl ac:flex-end">
     <div class="my:106"><br /></div>
 
-    <div class="row ai:center gap:4 mb:40">
+    <div class="row ai:center gap:4">
       Project Three.js
       <div class="b:1|solid|$(grayscale-400) p:4 bg:$(grayscale-1000)"></div>
     </div>
+    <div class="f:12">The entire project was originally built using R3F*</div>
+    <div class="f:12 mb:40">
+      It is now being reconstructed using Three.js for demonstration purposes
+    </div>
+
     <div
       v-for="project in projects"
       :key="project"
