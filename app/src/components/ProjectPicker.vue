@@ -6,7 +6,7 @@
       Project Three.js
       <div class="b:1|solid|$(grayscale-400) p:4 bg:$(grayscale-1000)"></div>
     </div>
-    <div class="f:12">The entire project was originally built using R3F*</div>
+    <div class="f:12">The entire project was originally built using R3F</div>
     <div class="f:12 mb:40">
       It is now being reconstructed using Three.js for demonstration purposes
     </div>
