@@ -25,16 +25,27 @@
         ></div>
         <div class="h:100% m:32 m:16@<md overflow:auto">
           <div id="title" class="h:150">
-            <div id="home" class="d:flex ai:center">
-              <img id="banner" src="banner.jpg" alt="" :class="bannerOut" />
-              <div id="banner_text" class="t:nowrap" :class="bannerTextOut">
+            <div class="ai:center" :class="homeClass">
+              <img
+                src="banner.jpg"
+                alt=""
+                class="w:300 h:168.75 {w:150;h:84;}@<md transition:all|300ms|linear|50ms"
+                :class="bannerClass"
+              />
+              <div
+                class="t:nowrap transition:all|300ms|linear|50ms z:999"
+                :class="bannerTextClass"
+              >
                 <div class="ml:-60 lora-banner f:48 f:32@<md mt:12@<md">
                   ma keng chon
                 </div>
                 <div class="ml:160 ml:30@<md open-sans">FRONTEND DEVELOPER</div>
               </div>
             </div>
-            <div id="kc_title" class="my-font h:150 d:none opacity:0">
+            <div
+              class="my-font h:150 d:block transition:all|300ms"
+              :class="subTextClass"
+            >
               <div class="f:60 font-weight:200">Keis Ma</div>
               <div class="f:13 font-weight:400">Developer & Footballer</div>
             </div>
@@ -66,58 +77,38 @@ const renderer = ref(null);
 const effect = ref(null);
 const preLoad = ref(true);
 const currentPage = ref("Home");
-const bannerIn = ref(
-  "w:300 h:168.75 {w:150;h:84;}@<md translateX(0) opacity:1 transition:all|300ms|linear|50ms"
-);
-const bannerOut = ref(
-  "w:300 h:168.75 {w:150;h:84;}@<md translateX(-60) opacity:0 transition:all|300ms|linear|50ms"
-);
-const bannerTextIn = ref(
-  "z:999 translateX(0) opacity:1 transition:all|300ms|linear|50ms"
-);
-const bannerTextOut = ref(
-  "z:999 translateX(90) opacity:0 transition:all|300ms|linear|50ms"
-);
-const subTextIn = ref("my-font h:150 d:block opacity:1 transition:all|300ms");
-const subTextOut = ref("my-font h:150 d:block opacity:0 transition:all|300ms");
+const homeClass = ref("d:flex");
+const bannerClass = ref("translateX(-60) opacity:0");
+const bannerTextClass = ref("translateX(90) opacity:0");
+const subTextClass = ref("opacity:0");
 
 const isHome = (val) => {
   let previous = currentPage.value;
 
   if (previous === "Home") {
-    let title_element = document.getElementById("banner");
-    title_element.className = bannerOut.value;
-    let text_element = document.getElementById("banner_text");
-    text_element.className = bannerTextOut.value;
+    bannerClass.value = "translateX(-60) opacity:0";
+    bannerTextClass.value = "translateX(90) opacity:0";
 
     setTimeout(() => {
-      let home_element = document.getElementById("home");
-      home_element.className = "d:none ai:center";
+      homeClass.value = "d:none";
     }, 300);
     setTimeout(() => {
-      let kc_element = document.getElementById("kc_title");
-      kc_element.className = subTextOut.value;
+      subTextClass.value = "opacity:0";
     }, 500);
     setTimeout(() => {
-      let kc_element = document.getElementById("kc_title");
-      kc_element.className = subTextIn.value;
+      subTextClass.value = "opacity:1";
     }, 550);
   } else if (val === "Home") {
-    let kc_element = document.getElementById("kc_title");
-    kc_element.className = subTextOut.value;
+    subTextClass.value = "opacity:0";
     setTimeout(() => {
-      let kc_element = document.getElementById("kc_title");
-      kc_element.className = "d:none";
+      subTextClass.value = "d:none!";
     }, 500);
     setTimeout(() => {
-      let home_element = document.getElementById("home");
-      home_element.className = "d:flex ai:center";
+      homeClass.value = "d:flex";
     }, 500);
     setTimeout(() => {
-      let element = document.getElementById("banner");
-      element.className = bannerIn.value;
-      let text_element = document.getElementById("banner_text");
-      text_element.className = bannerTextIn.value;
+      bannerClass.value = "translateX(0) opacity:1";
+      bannerTextClass.value = "translateX(0) opacity:1";
     }, 550);
   }
   currentPage.value = val;
@@ -165,10 +156,8 @@ onMounted(() => {
   setTimeout(() => {
     preLoad.value = false;
     setTimeout(() => {
-      let element = document.getElementById("banner");
-      element.className = bannerIn.value;
-      let text_element = document.getElementById("banner_text");
-      text_element.className = bannerTextIn.value;
+      bannerClass.value = "translateX(0) opacity:1";
+      bannerTextClass.value = "translateX(0) opacity:1";
       initThree();
     }, 500);
   }, 3000);
@@ -198,7 +187,7 @@ onMounted(() => {
   font-optical-sizing: auto;
   font-weight: 300;
   font-style: normal;
-  font-variation-settings: "wdth" 100;
+  font-variation-settings: "width" 100;
 }
 
 .fade-enter-active,

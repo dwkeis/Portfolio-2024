@@ -24,7 +24,7 @@ import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import * as THREE from "three";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import { gsap } from "gsap";
-import { easing, geometry } from "maath";
+import { easing } from "maath";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 const props = defineProps({
