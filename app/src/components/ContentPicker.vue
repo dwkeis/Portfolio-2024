@@ -16,13 +16,13 @@
       </div>
     </div>
     <div
-      class="abs right:calc(32px*2) bottom:calc(32px*2) {right:calc(20px*2);bottom:calc(16px*2)}@<md transition:opacity|300ms z:999"
+      class="abs right:calc(32px*2) bottom:calc(32px*2) {right:calc(20px*2);bottom:calc(16px*2)}@<md transition:opacity|300ms z:999 blend:difference color:white"
       :class="fadeClass"
     >
       <div v-if="selected === 'Home'" class="f:bold w:200">
-        <div>Created and shaped in 🇲🇴</div>
-        <div>Refined and living in 🇹🇼</div>
-        <div>A 🇵🇹 due to historic problem.</div>
+        <div class="blend:normal!">Created and shaped in Macau,</div>
+        <div>Refined and living in Taiwan,</div>
+        <div>A Portuguese due to historic problem.</div>
         <div class="mt:14">With a fervent passion for football,</div>
         <div>I devote a significant portion of my time to the sport.</div>
         <div>Similarly, as a developer,</div>

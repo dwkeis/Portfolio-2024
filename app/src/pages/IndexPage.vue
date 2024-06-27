@@ -31,7 +31,7 @@
                 :class="bannerClass"
               />
               <div
-                class="t:nowrap transition:all|300ms|linear|50ms z:999"
+                class="t:nowrap transition:all|300ms|linear|50ms z:999 blend:difference color:white"
                 :class="bannerTextClass"
               >
                 <div class="ml:-60 lora-banner f:48 f:32@<md mt:12@<md">
@@ -41,7 +41,7 @@
               </div>
             </div>
             <div
-              class="my-font h:150 d:block transition:all|300ms"
+              class="my-font h:150 d:block transition:all|300ms blend:difference color:white"
               :class="subTextClass"
             >
               <div class="f:60 font-weight:200">Keis Ma</div>
