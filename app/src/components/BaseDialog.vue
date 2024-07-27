@@ -47,7 +47,7 @@
         <slot v-else name="body"></slot>
       </q-card-section>
       <q-separator v-if="isFooterSeparator" />
-      <q-card-actions :class="footerClass" :align="footerAlign">
+      <q-card-actions v-if="isFooter" :class="footerClass" :align="footerAlign">
         <slot name="footer"></slot>
       </q-card-actions>
     </q-card>
@@ -124,6 +124,10 @@ export default defineComponent({
       default: "54.5vh",
     },
     isScroll: {
+      type: Boolean,
+      default: false,
+    },
+    isFooter: {
       type: Boolean,
       default: false,
     },

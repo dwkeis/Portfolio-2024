@@ -75,16 +75,16 @@ const projects = ref([
 ]);
 const vueProjects = ref([
   {
+    title: "APMIC",
+    date: "Sept. 2023 / Nuxt + Tailwind Css",
+  },
+  {
     title: "OpenTalk",
     date: "Mar. 2022 / Quasar2 + Master Css",
   },
   {
     title: "Caigunn",
     date: "Nov. 2023 / Nuxt + Master Css",
-  },
-  {
-    title: "APMIC",
-    date: "Sept. 2023 / Nuxt + Tailwind Css",
   },
 ]);
 

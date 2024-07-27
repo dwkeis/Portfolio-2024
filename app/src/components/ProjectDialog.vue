@@ -1,16 +1,16 @@
 <template>
   <base-dialog
     v-model:dialogShow="myShow"
-    width="70vw"
-    height="60vh"
-    body-class="h:full"
+    :width="`${isMobile ? '90vw' : '70vw'}`"
+    :height="`${isMobile ? '50vh' : '80vh'}`"
+    body-class="h:90%"
   >
     <template #header>
       <div class="f:bold f:24 my-font">{{ project }}</div>
     </template>
     <template #body>
-      <div id="project_area" class="w:full h:full">
-        <canvas class="project overflow:hidden! w:full h:full"></canvas>
+      <div id="project_dialog" class="h:full">
+        <canvas class="project overflow:hidden!"></canvas>
       </div>
     </template>
   </base-dialog>
@@ -53,6 +53,10 @@ const canvas = ref(null);
 const renderer = ref(null);
 const camera = ref(null);
 const clock = new THREE.Clock();
+
+const isMobile = computed(() => {
+  return window.innerWidth < 1024;
+});
 
 const rgbeLoader = new RGBELoader();
 rgbeLoader.load("HDR_029_Sky_Cloudy_Env.hdr", (environmentMap) => {
@@ -100,7 +104,7 @@ const initCard = () => {
       }
     });
     gltf.scene.rotation.set(0, 2.5, 0);
-    gltf.scene.position.set(0.7, 0, 0);
+    gltf.scene.position.set(0.7, -0.07, 0);
     medal.value = gltf.scene;
     scene.add(gltf.scene);
     gsap.to(medal.value.rotation, {
@@ -120,7 +124,7 @@ const initCard = () => {
   /**
    * Camera
    */
-  camera.value.position.set(0, 0.05, 1);
+  camera.value.position.set(0, -0.1, 1);
   scene.add(camera.value);
 
   /**
@@ -531,9 +535,10 @@ const functionCaller = () => {
 onMounted(() => {
   setTimeout(() => {
     window.addEventListener("resize", onResize);
-    tracking.value = document.getElementById("project_area");
+    tracking.value = document.getElementById("project_dialog");
     sizes.width = tracking.value.offsetWidth;
     sizes.height = tracking.value.offsetHeight;
+    console.log(sizes);
     tracking.value.addEventListener("mousemove", onMouseMove);
     camera.value = new THREE.PerspectiveCamera(
       50,
