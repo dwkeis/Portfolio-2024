@@ -59,7 +59,7 @@ import ProjectPicker from "./ProjectPicker.vue";
 
 const emit = defineEmits(["update"]);
 
-const selected = ref("Home");
+const selected = ref("Project");
 const routes = ref([
   {
     label: "Home",
