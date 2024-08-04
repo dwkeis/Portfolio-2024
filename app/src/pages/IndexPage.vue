@@ -42,7 +42,7 @@
               </div>
             </div>
             <div
-              class="my-font h:150 d:block transition:all|300ms blend:difference color:white"
+              class="my-font h:150 d:block transition:all|300ms blend:difference color:white rel z:999"
               :class="subTextClass"
             >
               <div class="f:60 font-weight:200">Keis Ma</div>
@@ -71,7 +71,6 @@ import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
 
-import { RGBShiftShader } from "three/addons/shaders/RGBShiftShader.js";
 import { DotScreenShader } from "three/addons/shaders/DotScreenShader.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 
@@ -82,10 +81,10 @@ defineOptions({
 const myTheme = useThemeStore();
 const preLoad = ref(true);
 const currentPage = ref("Home");
-const homeClass = ref("d:flex");
+const homeClass = ref("d:none");
 const bannerClass = ref("translateX(-60) opacity:0");
 const bannerTextClass = ref("translateX(90) opacity:0");
-const subTextClass = ref("opacity:0");
+const subTextClass = ref("opacity:1");
 
 const isHome = (val) => {
   let previous = currentPage.value;
@@ -228,10 +227,6 @@ const initThree = () => {
   effect1.uniforms["scale"].value = 4;
   composer.value.addPass(effect1);
 
-  const effect2 = new ShaderPass(RGBShiftShader);
-  effect2.uniforms["amount"].value = 0.0015;
-  composer.value.addPass(effect2);
-
   const effect3 = new OutputPass();
   composer.value.addPass(effect3);
 
@@ -299,8 +294,6 @@ onMounted(() => {
     preLoad.value = false;
     setTimeout(() => {
       window.addEventListener("resize", onResize);
-      bannerClass.value = "translateX(0) opacity:1";
-      bannerTextClass.value = "translateX(0) opacity:1";
       initThree();
     }, 500);
   }, 3000);
