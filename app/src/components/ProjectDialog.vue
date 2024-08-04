@@ -538,7 +538,6 @@ onMounted(() => {
     tracking.value = document.getElementById("project_dialog");
     sizes.width = tracking.value.offsetWidth;
     sizes.height = tracking.value.offsetHeight;
-    console.log(sizes);
     tracking.value.addEventListener("mousemove", onMouseMove);
     camera.value = new THREE.PerspectiveCamera(
       50,
