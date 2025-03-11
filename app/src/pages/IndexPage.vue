@@ -80,7 +80,7 @@ defineOptions({
 
 const myTheme = useThemeStore();
 const preLoad = ref(true);
-const currentPage = ref("Home");
+const currentPage = ref("");
 const homeClass = ref("d:none");
 const bannerClass = ref("translateX(-60) opacity:0");
 const bannerTextClass = ref("translateX(90) opacity:0");
