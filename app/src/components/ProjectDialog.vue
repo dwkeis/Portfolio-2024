@@ -18,7 +18,7 @@
 
 <script setup>
 import BaseDialog from "src/components/BaseDialog.vue";
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import * as THREE from "three";
@@ -532,25 +532,49 @@ const functionCaller = () => {
   }
 };
 
-onMounted(() => {
-  setTimeout(() => {
-    window.addEventListener("resize", onResize);
-    tracking.value = document.getElementById("project_dialog");
-    sizes.width = tracking.value.offsetWidth;
-    sizes.height = tracking.value.offsetHeight;
-    tracking.value.addEventListener("mousemove", onMouseMove);
-    camera.value = new THREE.PerspectiveCamera(
-      50,
-      sizes.width / sizes.height,
-      0.1,
-      100
-    );
-    functionCaller();
-  }, 300);
-});
+const clearScene = () => {
+  // Remove all objects except lights and camera
+  while (scene.children.length > 0) {
+    const object = scene.children[0];
+    // Skip camera and lights if needed
+    if (object.isCamera) {
+      scene.children.shift();
+      continue;
+    }
+    scene.remove(object);
+  }
 
-onUnmounted(() => {
-  window.removeEventListener("resize", onResize);
-  tracking.value.removeEventListener("mousemove", onMouseMove);
-});
+  // Dispose of any existing renderers, geometries, materials, textures
+  if (renderer.value) {
+    // Don't dispose renderer itself, just clear it
+    renderer.value.clear();
+  }
+};
+
+watch(
+  () => myShow.value,
+  (newValue) => {
+    if (newValue === true) {
+      clearScene();
+      setTimeout(() => {
+        window.addEventListener("resize", onResize);
+        tracking.value = window;
+        // tracking.value = document.getElementById("project_dialog");
+        sizes.width = document.getElementById("project_dialog").offsetWidth;
+        sizes.height = document.getElementById("project_dialog").offsetHeight;
+        tracking.value.addEventListener("mousemove", onMouseMove);
+        camera.value = new THREE.PerspectiveCamera(
+          50,
+          sizes.width / sizes.height,
+          0.1,
+          100
+        );
+        functionCaller();
+      }, 300);
+    } else {
+      window.removeEventListener("resize", onResize);
+      tracking.value.removeEventListener("mousemove", onMouseMove);
+    }
+  }
+);
 </script>

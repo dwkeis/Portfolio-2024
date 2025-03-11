@@ -39,7 +39,6 @@
     </div>
   </div>
   <ProjectDialog
-    v-if="showProjectDialog"
     v-model:dialogShow="showProjectDialog"
     :project="projectName"
   />

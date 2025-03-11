@@ -103,8 +103,6 @@ const isHome = (val) => {
       subTextClass.value = "opacity:1";
     }, 550);
   } else if (val === "Home") {
-    console.log("??");
-
     subTextClass.value = "opacity:0";
     setTimeout(() => {
       subTextClass.value = "d:none!";
